@@ -159,25 +159,25 @@ summary = agent.summarize_page("https://example.com")
 ### Сборка Docker образа:
 
 ```bash
-docker build -t <dockerhub_username>/page_summarizer .
+docker build -t rymarev/page_summarizer .
 ```
 
-Например:
+Или используйте готовый образ с Docker Hub:
 ```bash
-docker build -t myusername/page_summarizer .
+docker pull rymarev/page_summarizer:latest
 ```
 
 ### Запуск контейнера:
 
 **Веб-приложение (по умолчанию):**
 ```bash
-docker run -p 5000:5000 -e OPENAI_API_KEY="ваш_api_ключ" <dockerhub_username>/page_summarizer
+docker run -p 8088:8088 -e OPENAI_API_KEY="ваш_api_ключ" -e FLASK_PORT=8088 rymarev/page_summarizer
 ```
-Откройте http://localhost:5000
+Откройте http://localhost:8088
 
 **Командная строка:**
 ```bash
-docker run -e OPENAI_API_KEY="ваш_api_ключ" <dockerhub_username>/page_summarizer python agent.py https://example.com
+docker run -e OPENAI_API_KEY="ваш_api_ключ" rymarev/page_summarizer python agent.py https://example.com
 ```
 
 ### Публикация образа в Docker Hub:
@@ -189,34 +189,31 @@ docker login
 
 2. Загрузите образ:
 ```bash
-docker push <dockerhub_username>/page_summarizer
+docker push rymarev/page_summarizer
 ```
 
-Например:
+3. Образ доступен публично на Docker Hub:
 ```bash
-docker push myusername/page_summarizer
+docker pull rymarev/page_summarizer:latest
 ```
 
-3. Теперь образ доступен публично и может быть загружен другими:
-```bash
-docker pull <dockerhub_username>/page_summarizer
-```
+**Ссылка на Docker Hub:** https://hub.docker.com/r/rymarev/page_summarizer
 
 ### Примеры использования Docker:
 
 **Веб-приложение:**
 ```bash
-docker run -p 5000:5000 -e OPENAI_API_KEY="your_key" myusername/page_summarizer
+docker run -p 8088:8088 -e OPENAI_API_KEY="your_key" -e FLASK_PORT=8088 rymarev/page_summarizer
 ```
 
 **CLI с конкретным URL:**
 ```bash
-docker run -e OPENAI_API_KEY="your_key" myusername/page_summarizer python agent.py https://en.wikipedia.org/wiki/Python
+docker run -e OPENAI_API_KEY="your_key" rymarev/page_summarizer python agent.py https://en.wikipedia.org/wiki/Python
 ```
 
 **С .env файлом:**
 ```bash
-docker run -p 5000:5000 --env-file .env myusername/page_summarizer
+docker run -p 8088:8088 --env-file .env rymarev/page_summarizer
 ```
 
 ## Обработка ошибок
